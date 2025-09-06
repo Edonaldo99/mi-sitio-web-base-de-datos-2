@@ -1,0 +1,31 @@
+name: Verificación del Proyecto
+
+# Define cuándo se va a ejecutar este flujo de trabajo
+on:
+  push:
+    branches:
+      - main
+
+# Define los trabajos (jobs) que se ejecutarán
+jobs:
+  build:
+    # El tipo de máquina virtual donde se ejecutará
+    runs-on: ubuntu-latest
+
+    # Los pasos que conforman el trabajo
+    steps:
+      # Paso 1: Clona el repositorio
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      # Paso 2: Ejecuta una prueba simple
+      - name: Verificar archivos del proyecto
+        run: |
+          echo "Ejecutando la verificación de archivos..."
+          # Revisa si el archivo index.html existe
+          if [ -f "index.html" ]; then
+            echo "✅ ¡El archivo index.html se encontró correctamente!"
+          else
+            echo "❌ ERROR: No se encontró el archivo index.html. La prueba falló."
+            exit 1
+          fi
